@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Votely</string>
+    <string name="welcome_to_vote_me">Welcome to Votely!</string>
+    <string name="app_welcome_icon">app welcome icon</string>
+    <string name="email">Email:</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="password">Password:</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="register_here"><u>Not a user? Register here!</u></string>
+    <string name="sign_in">Sign in</string>
+    <string name="welcome_to_votely">Welcome to Votely</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="already_have_an_account_sign_in_here">Already have an account? sign in here</string>
+    <string name="name">Name:</string>
+    <string name="enter_your_name">Enter your Name</string>
+    <string name="please_enter_your_details"><u>Please enter your details</u></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+</resources>

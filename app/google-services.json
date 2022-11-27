@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "924897439653",
+    "project_id": "votely-c6023",
+    "storage_bucket": "votely-c6023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924897439653:android:6f746f8de6678dcf37424c",
+        "android_client_info": {
+          "package_name": "com.example.voteme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924897439653-s4a01oe73p8r9c2dotjdg2heqfcqt66m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaPW3d46ykaf71cAwF8FpypX8NWBMcuQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924897439653-s4a01oe73p8r9c2dotjdg2heqfcqt66m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
