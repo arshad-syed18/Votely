@@ -10,4 +10,6 @@
     <color name="light_grey_background">#33404040</color>
     <color name="grey_bg">#282424</color>
     <color name="dark_grey">#231f22</color>
+    <color name="light_blue">#0068FF</color>
+    <color name="light_green">#19FF00</color>
 </resources>

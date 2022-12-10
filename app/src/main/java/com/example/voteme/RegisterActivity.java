@@ -11,10 +11,15 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voteme.databinding.ActivityRegisterBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -89,10 +94,19 @@ public class RegisterActivity extends AppCompatActivity {
                                     });
                                 }
                             });
-                            Log.d(TAG, "createUserData: success");
-                            Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
-                            startActivity(intent);
-                            finish();
+                            FirebaseUser userr = FirebaseAuth.getInstance().getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name).build();
+
+                            assert userr != null;
+                            userr.updateProfile(profileUpdates).addOnCompleteListener(task12 -> {
+                                Log.d(TAG, "createUserData: success");
+                                Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
+                                startActivity(intent);
+                                finish();
+                            });
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

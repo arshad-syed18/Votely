@@ -18,4 +18,9 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="user_image">user image</string>
+    <string name="this_is_a_question">This is a Question!</string>
+    <string name="this_is_option_one">This is Option one</string>
+    <string name="this_is_option_two">This is Option two</string>
+    <string name="this_is_option_three">This is option three</string>
+    <string name="this_is_option_four">This is option four</string>
 </resources>
