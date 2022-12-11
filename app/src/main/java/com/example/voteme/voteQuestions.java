@@ -8,14 +8,18 @@ public class voteQuestions {
     String questionText;
     ArrayList<String> options;
     ArrayList<Integer> voteCounts;
+    String voteQuesstionId;
+
+
 
     public voteQuestions() {
     }
 
-    public voteQuestions(String questionText, ArrayList<String> options, ArrayList<Integer> voteCounts) {
+    public voteQuestions(String questionText, ArrayList<String> options, ArrayList<Integer> voteCounts, String voteQuesstionId) {
         this.questionText = questionText;
         this.options = options;
         this.voteCounts = voteCounts;
+        this.voteQuesstionId = voteQuesstionId;
     }
 
     public String getQuestionText() {
@@ -40,5 +44,13 @@ public class voteQuestions {
 
     public void setVoteCounts(ArrayList<Integer> voteCounts) {
         this.voteCounts = voteCounts;
+    }
+
+    public String getVoteQuesstionId() {
+        return voteQuesstionId;
+    }
+
+    public void setVoteQuesstionId(String voteQuesstionId) {
+        this.voteQuesstionId = voteQuesstionId;
     }
 }

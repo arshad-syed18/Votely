@@ -2,15 +2,17 @@ package com.example.voteme;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.voteme.databinding.ActivityBaseBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -24,9 +26,8 @@ public class BaseActivity extends AppCompatActivity {
     FirebaseDatabase database;
     ArrayList<voteQuestions> voteQuestionsArrayList;
 
-    String questionText;
-    ArrayList<String> options;
-    ArrayList<Integer> voteCounts;
+
+    int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        voteQuestionsArrayList = new ArrayList<>();
 
         String us = auth.getUid();
         binding.textView3.setText(us);
@@ -43,23 +45,47 @@ public class BaseActivity extends AppCompatActivity {
         String userName = Objects.requireNonNull(auth.getCurrentUser()).getDisplayName();
         binding.userWelcome.setText(String.format("Welcome, %s", userName));
 
-
-        //TODO dummy values here need to get from database new child etc
-        voteQuestionsArrayList = new ArrayList<>();
-        options = new ArrayList<>();
-        voteCounts = new ArrayList<>();
-
-        questionText = "Hey! This is a question that is gonna be multiple lines" +
-                "How doesit look? Please give feedback!";
-        options.add("Option111");
-        options.add("Option2222");
-        voteCounts.add(5);
-        voteCounts.add(5);
-        voteQuestions voteQuestions = new voteQuestions(questionText, options, voteCounts);
-        voteQuestionsArrayList.add(voteQuestions);
-
+        String randomKey = database.getReference().push().getKey();
         viewPagerAdapter adapter = new viewPagerAdapter(voteQuestionsArrayList);
         binding.viewPager2.setAdapter(adapter);
+
+        binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        //TODO add values from other website, for now 3 dummy values available to work with
+
+        database.getReference()
+                .child("voteQuestions")
+                .child("active")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        voteQuestionsArrayList.clear();
+                        i=0;
+                        for(DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            voteQuestions voteQuestions = snapshot1.getValue(voteQuestions.class);
+                            assert voteQuestions != null;
+                            voteQuestions.setVoteQuesstionId(snapshot1.getKey());
+                            voteQuestionsArrayList.add(voteQuestions);
+                            adapter.notifyItemChanged(i++);
+                        }
+                        //adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
 
     }
 }

@@ -1,5 +1,6 @@
 package com.example.voteme;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voteme.databinding.ItemVotesBinding;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,7 @@ public class viewPagerAdapter extends RecyclerView.Adapter<viewPagerAdapter.MyVi
                 holder.binding.optionThreeBtn.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                System.out.println("four");
                 holder.binding.optionOneBtn.setText(voteQuestions.options.get(0));
                 holder.binding.optionTwoBtn.setText(voteQuestions.options.get(1));
                 holder.binding.optionThreeBtn.setText(voteQuestions.options.get(2));
@@ -52,6 +55,19 @@ public class viewPagerAdapter extends RecyclerView.Adapter<viewPagerAdapter.MyVi
             default:
                 holder.binding.optionOneBtn.setText(voteQuestions.options.get(0));
                 holder.binding.optionTwoBtn.setText(voteQuestions.options.get(1));
+                holder.binding.optionOneBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        voteQuestions.voteCounts.set(0, voteQuestions.voteCounts.get(0)+1);
+                        System.out.println(voteQuestions.voteCounts.get(0));
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("voteQuestions")
+                                .child("active")
+                                .child(voteQuestions.getVoteQuesstionId()).setValue(voteQuestions);
+                        int bg = R.drawable.button_bgvote_selected;
+                        holder.binding.optionOneBtn.setBackgroundResource(bg);
+                    }
+                });
                 break;
         }
 
@@ -70,6 +86,8 @@ public class viewPagerAdapter extends RecyclerView.Adapter<viewPagerAdapter.MyVi
             super(itemView);
 
             binding = ItemVotesBinding.bind(itemView);
+
+            //itemView.invalidate();
         }
     }
 }
